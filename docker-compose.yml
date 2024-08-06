@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  identity:
+    container_name: identity
+    image: erada/identity
+    build: 
+      context: ./identity
+      dockerfile: development.Dockerfile
+    volumes:
+      - ./identity:/app
+    env_file:
+      - ./environment.env
+    restart: on-failure
+    command: npm run start:dev
+    networks:
+      - erada_network
+   
+  api-gateway:
+    container_name: api-gateway
+    image: erada/api-gateway
+    build: 
+      context: ./api-gateway
+      dockerfile: development.Dockerfile
+   
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./api-gateway:/app
+    env_file:
+      - ./environment.env
+    restart: on-failure
+    command: npm run start:dev
+    networks:
+      - erada_network
+   
+
+networks:
+  erada_network:
+    driver: bridge
+
+
+
