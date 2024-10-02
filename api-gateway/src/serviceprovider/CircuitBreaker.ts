@@ -41,30 +41,30 @@ class CircuitBreaker {
     this.state = CircuitBreakerStates.OPEN;
     this.nextAttempt = Date.now() + this.timeout;
 
-    // console.table({
-    //   circuitBreaker: 'open',
-    //   nextAttempt: new Date(this.nextAttempt).toISOString(),
-    //   failureCount: this.failureCount,
-    // });
+    console.table({
+      circuitBreaker: 'open',
+      nextAttempt: new Date(this.nextAttempt).toISOString(),
+      failureCount: this.failureCount,
+    });
   }
 
   halfOpen(): void {
     this.state = CircuitBreakerStates.HALF_OPEN;
 
-    // console.table({
-    //   circuitBreaker: 'half open',
-    //   successCount: this.successCount,
-    // });
+    console.table({
+      circuitBreaker: 'half open',
+      successCount: this.successCount,
+    });
   }
 
   close(): void {
     this.successCount = 0;
     this.state = CircuitBreakerStates.CLOSED;
 
-    // console.table({
-    //   circuitBreaker: 'closed',
-    //   failureCount: this.failureCount,
-    // });
+    console.table({
+      circuitBreaker: 'closed',
+      failureCount: this.failureCount,
+    });
   }
 
   async send(request: AxiosRequestConfig): Promise<AxiosResponse> {
@@ -81,14 +81,15 @@ class CircuitBreaker {
       const response = await axios({
         ...request,
         timeout: this.timeout,
-        validateStatus: (status: number) => {
-          return status < 500;
-        },
+       
       });
-
+ 
       return this.success(response);
     } catch (err: any) {
+      console.log("89-> err", err);
+      
       return this.failure(err);
+
     }
   }
 
@@ -102,6 +103,7 @@ class CircuitBreaker {
         this.close();
       }
     }
+    
 
     return { status: res.status, data: res.data };
   }
@@ -113,10 +115,9 @@ class CircuitBreaker {
       this.open();
     }
 
-    return Promise.reject({
-      message: err.response?.data?.message ?? err.response?.data,
-      error: err.message,
-    });
+    return Promise.reject(
+       err
+    );
   }
 
   private logHost(request: AxiosRequestConfig): void {
