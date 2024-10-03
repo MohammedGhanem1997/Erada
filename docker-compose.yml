@@ -63,18 +63,18 @@ services:
       - erada_network
     restart: on-failure
 
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: rabbitmq_container
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: rabbitmq-user
-      RABBITMQ_DEFAULT_PASS: rabbitmq-password
+  # rabbitmq:
+  #   image: rabbitmq:management
+  #   container_name: rabbitmq_container
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: rabbitmq-user
+  #     RABBITMQ_DEFAULT_PASS: rabbitmq-password
 
-    networks:
-      - erada_network
+  #   networks:
+  #     - erada_network
 
   postgres:
     image: postgres:latest
