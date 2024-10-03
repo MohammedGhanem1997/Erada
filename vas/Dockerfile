@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18 AS development
 
 WORKDIR /app
 
@@ -13,6 +13,6 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start:prod"]
 
 # RUN npm run migration:run
