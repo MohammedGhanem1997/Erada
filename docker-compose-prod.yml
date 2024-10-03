@@ -5,7 +5,7 @@ services:
     image: erada/identity:1.0.0
     build: 
       context: ./identity
-      dockerfile: .Dockerfile
+      dockerfile: Dockerfile
     env_file:
       - ./environment.env
     depends_on:
@@ -25,7 +25,7 @@ services:
     image: erada/vas
     build: 
       context: ./vas
-      dockerfile: .Dockerfile
+      dockerfile: Dockerfile
     env_file:
       - ./environment.env
     depends_on:
@@ -46,7 +46,7 @@ services:
     image: erada/api-gateway:1.0.5
     build: 
       context: ./api-gateway
-      dockerfile: .Dockerfile
+      dockerfile: Dockerfile
 
     env_file:
       - ./environment.env
