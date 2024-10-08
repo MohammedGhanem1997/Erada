@@ -31,14 +31,22 @@ export interface IBranch extends IBaseWithMeta{
   staffs?:any
 }
 
-export interface IEmployee extends IBaseWithId{
 
-  branch: string;
-  staff?:any
-  staffId:string
+export interface IInsuranceCompany extends IBaseWithMeta {
+  name: string;
+  bankName: string;
+  accountNumber: string;
+  eradaAccountNumber: string;
+  status: boolean;
+  policiesCount: number;
 }
 
-
-
+export interface IInsurancePolicy extends IBaseWithMeta {
+  insuranceCompanyId: string;
+  name: string;
+  amount: number;
+  startDate: Date;
+  endDate: Date;
+}
 
 
