@@ -19,12 +19,15 @@ export interface IBranch extends IBaseWithMeta{
 
   managerId: string;
 
-  status:boolean;
+  status:string;
   name:string;
   gaverment:string;
   area:string;
   len?:string;
   lat?:string
+  street?:string
+  buildingNO?:string
+  landmark?:string
   staffs?:any
 }
 

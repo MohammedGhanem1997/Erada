@@ -8,7 +8,7 @@ import { RESPONSE_MESSAGES } from '../../types/responseMessages';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
 import CircuitBreaker from 'src/utils/CircuitBreaker';
-export const allowedFieldsToSort = ['name'];
+export const allowedFieldsToSort = ['name','status','gaverment','area'];
 const AllowParams = Object.freeze({
   SLUG: 'branch', // add sidebar slug here
   ADD: 'add', // add actions here
@@ -162,27 +162,52 @@ export class BranchService extends BaseService {
    */
   async findAll(data: any) {
     try {
-      const { search, branch, sort } = data;
+      const { search, name, sort,status,gaverment,area } = data;
       const qr = this.branchRepository.createQueryBuilder('branch');
       qr.select(['branch.id', 'branch.name', 'branch.status']) ;
 
       if (sort) {
         const param = this.buildSortParams<{
           name: string;
-        }>(sort); //check if param is one of keys
+          status: string;
+          gaverment: string;
+          area: string;        }>(sort); //check if param is one of keys
+
         if (allowedFieldsToSort.includes(param[0])) {
-          if (param[0] === 'name') {
+          if (param[0] === 'status') {
             qr.orderBy(`branch.${param[0]}`, param[1]);
-          }
+          } if (param[0] === 'gaverment') {
+            qr.orderBy(`branch.${param[0]}`, param[1]);
+          } if (param[0] === 'area') {
+            qr.orderBy(`branch.${param[0]}`, param[1]);
+         
         }
-      } else {
+      }
+     } else {
         qr.orderBy('branch.createdAt', 'ASC');
       }
-      if (branch) {
-        qr.andWhere('branch.name LIKE :branch', {
-          branch: '%' + branch + '%',
+      if (name) {
+        qr.andWhere('branch.name LIKE :name', {
+          name: '%' + name + '%',
         });
       }
+      if (status) {
+        qr.andWhere('branch.status LIKE :status', {
+          status: '%' + status + '%',
+        });
+      }
+
+      if (gaverment) {
+        qr.andWhere('branch.gaverment LIKE :gaverment', {
+          gaverment: '%' + gaverment + '%',
+        });
+      } if (area) {
+        qr.andWhere('branch.area LIKE :area', {
+          area: '%' + area + '%',
+        });
+      }
+
+
       if (search) {
         qr.andWhere('branch.name LIKE :search', {
           search: '%' + search + '%',

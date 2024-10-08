@@ -122,6 +122,5 @@ export class EmployeeService extends BaseService {
    * @description : This function is used to delete branch
    */
   async delete(id) {
-
   }
 }
