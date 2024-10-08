@@ -1,3 +1,4 @@
+
 import { Controller, Get, Post, Body, Patch, Param, Delete,Query } from '@nestjs/common';
 import { StaffService } from './staff.service';
 
@@ -17,7 +18,12 @@ export class StaffController {
     }
   }
 
-  @Get('all')
+ 
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.staffService.findOne(id);
+  }
+
   findAll(  @Query()
   query: any,) {
     return this.staffService.findAll(query);

@@ -23,6 +23,7 @@ export class CustomErrorHandle {
         //     cause: error
         //   });
         console.log("----------------------------------------------------");
+
         console.log( error.response);
 
         console.log(error.response.status);
