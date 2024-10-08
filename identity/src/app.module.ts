@@ -15,7 +15,6 @@ import { PermissionModule } from './permission/permission.module';
 import { ActionModule } from './action/action.module';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-
 @Module({
   imports: [
     ConfigModule.forRoot({

@@ -1,4 +1,3 @@
-
 interface IBase {
   createdAt?: any;
   updatedAt?: any;

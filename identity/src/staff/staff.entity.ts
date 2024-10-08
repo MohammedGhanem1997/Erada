@@ -34,13 +34,11 @@ export class Staff extends BaseEntityWithId implements IStaff {
   
   @JoinColumn()
   role: string;
+  @ManyToOne(() => Staff, (manager) => manager.employees, { nullable: true })
+  manager: Staff;
 
-  @TreeParent()
-    manager: Staff;
-
-   @TreeChildren()
-      employees: Staff[];
-      
+  @OneToMany(() => Staff, (employee) => employee.manager)
+  employees: Staff[];
 
   @OneToMany(() => Branch, (branch) => branch.staff, { nullable: true })
   
@@ -49,7 +47,6 @@ export class Staff extends BaseEntityWithId implements IStaff {
   // @ApiProperty({ description: 'refresh token' })
   // @Column({ type: 'varchar', default: null })
   // refreshToken: string;
-
 
 
   async validatePassword(password: string): Promise<boolean> {

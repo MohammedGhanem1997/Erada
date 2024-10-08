@@ -44,10 +44,10 @@ console.log( __dirname);
   
   };
 
+
+  export const database=  registerAs('database', () => config)
+export default   new DataSource(config as DataSourceOptions);
+
   console.log(config);
   
-
-export const database= registerAs('database', () => config)
-export default   new DataSource(config as DataSourceOptions);
- 
 
